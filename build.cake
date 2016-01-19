@@ -338,7 +338,7 @@ Task("Create-Release-Notes")
     });
 });
 
-Task("Publish-AppVeyor-NuGet")
+Task("Upload-AppVeyor-NuGet")
     .WithCriteria(() => isRunningOnAppVeyor)
     .Does(() => {
     
@@ -349,11 +349,8 @@ Task("Publish-AppVeyor-NuGet")
             // Get the path to the package.
             var packagePath = nugetRoot + File(string.Concat(package, ".", semVersion, ".nupkg"));
 
-            // Push the package.
-            NuGetPush(packagePath, new NuGetPushSettings {
-                Source = "https://ci.appveyor.com/nuget/slyngelstat-2gkyb5mpneui"
-                ApiKey = apiKey
-            });
+            // Upload the package.
+            AppVeyor.UploadArtifact(packagePath);
         } 
     });
 
@@ -377,7 +374,7 @@ Task("AppVeyor")
   .IsDependentOn("Update-AppVeyor-Build-Number")
   .IsDependentOn("Upload-AppVeyor-Artifacts")
   .IsDependentOn("Publish-MyGet");
-  .IsDependentOn("Publish-AppVeyor-NuGet")
+  .IsDependentOn("Upload-AppVeyor-NuGet")
 
 Task("Travis")
   .IsDependentOn("Run-Unit-Tests");
