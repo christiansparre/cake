@@ -13,10 +13,9 @@ test: off
 branches:
   # Whitelist
   only:
-    - develop
-    - main
+    - add-dnu-publish
 
 # Build cache
-cache:
-- src\packages -> src\**\packages.config
-- tools -> tools\packages.config
+#cache:
+#- src\packages -> src\**\packages.config
+#- tools -> tools\packages.config
