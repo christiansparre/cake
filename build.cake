@@ -338,6 +338,25 @@ Task("Create-Release-Notes")
     });
 });
 
+Task("Publish-AppVeyor-NuGet")
+    .WithCriteria(() => isRunningOnAppVeyor)
+    .Does(() => {
+    
+        var apiKey = EnvironmentVariable("APPVEYOR_NUGET_APIKEY");
+    
+        foreach(var package in new[] { "Cake", "Cake.Core", "Cake.Common", "Cake.Testing" })
+        {
+            // Get the path to the package.
+            var packagePath = nugetRoot + File(string.Concat(package, ".", semVersion, ".nupkg"));
+
+            // Push the package.
+            NuGetPush(packagePath, new NuGetPushSettings {
+                Source = "https://ci.appveyor.com/nuget/slyngelstat-2gkyb5mpneui"
+                ApiKey = apiKey
+            });
+        } 
+    });
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
@@ -358,6 +377,7 @@ Task("AppVeyor")
   .IsDependentOn("Update-AppVeyor-Build-Number")
   .IsDependentOn("Upload-AppVeyor-Artifacts")
   .IsDependentOn("Publish-MyGet");
+  .IsDependentOn("Publish-AppVeyor-NuGet")
 
 Task("Travis")
   .IsDependentOn("Run-Unit-Tests");
