@@ -1,6 +1,7 @@
 ﻿using System;
 using Cake.Common.Tools.DNU.Build;
 using Cake.Common.Tools.DNU.Pack;
+using Cake.Common.Tools.DNU.Publish;
 using Cake.Common.Tools.DNU.Restore;
 using Cake.Core;
 using Cake.Core.Annotations;
@@ -243,6 +244,15 @@ namespace Cake.Common.Tools.DNU
 
             var restorer = new DNUPacker(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
             restorer.Pack(path, settings);
+        }
+
+        [CakeMethodAlias]
+        [CakeAliasCategory("Publish")]
+        [CakeNamespaceImport("Cake.Common.Tools.DNU.Publish")]
+        public static void DNUPublish(this ICakeContext context, string path, DNUPublishSettings settings)
+        {
+            var publisher = new DNUPublisher(context.FileSystem, context.Environment, context.ProcessRunner, context.Globber);
+            publisher.Publish(path, settings);
         }
     }
 }

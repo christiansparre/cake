@@ -153,6 +153,8 @@
     <Compile Include="Tools\DNU\DNUTool.cs" />
     <Compile Include="Tools\DNU\Pack\DNUPacker.cs" />
     <Compile Include="Tools\DNU\Pack\DNUPackSettings.cs" />
+    <Compile Include="Tools\DNU\Publish\DNUPublisher.cs" />
+    <Compile Include="Tools\DNU\Publish\DNUPublishSettings.cs" />
     <Compile Include="Tools\DNU\Restore\DNULocked.cs" />
     <Compile Include="Tools\DNU\Restore\DNURestorer.cs" />
     <Compile Include="Tools\DNU\Restore\DNURestoreSettings.cs" />
