@@ -246,6 +246,12 @@ namespace Cake.Common.Tools.DNU
             restorer.Pack(path, settings);
         }
 
+        /// <summary>
+        /// Publish project
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="path">The project path.</param>
+        /// <param name="settings">The settings.</param>
         [CakeMethodAlias]
         [CakeAliasCategory("Publish")]
         [CakeNamespaceImport("Cake.Common.Tools.DNU.Publish")]
