@@ -341,6 +341,7 @@ Task("Create-Release-Notes")
 Task("Upload-AppVeyor-NuGet")
     .WithCriteria(() => isRunningOnAppVeyor)
     .Does(() => {
+        Information("Uploading AppVeyor artifacts");
         foreach(var package in new[] { "Cake", "Cake.Core", "Cake.Common", "Cake.Testing" })
         {
             // Get the path to the package.
@@ -349,6 +350,7 @@ Task("Upload-AppVeyor-NuGet")
             // Upload the package.
             AppVeyor.UploadArtifact(packagePath);
         } 
+        Information("Completed uploading AppVeyor artifacts");
     });
 
 //////////////////////////////////////////////////////////////////////
