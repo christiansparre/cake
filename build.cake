@@ -362,8 +362,7 @@ Task("Package")
   .IsDependentOn("Create-NuGet-Packages");
 
 Task("Default")
-  .IsDependentOn("Package")
-  .IsDependentOn("Upload-AppVeyor-NuGet");
+  .IsDependentOn("Package");
 
 Task("Publish")
   .IsDependentOn("Publish-NuGet")
@@ -373,7 +372,8 @@ Task("Publish")
 Task("AppVeyor")
   .IsDependentOn("Update-AppVeyor-Build-Number")
   .IsDependentOn("Upload-AppVeyor-Artifacts")
-  .IsDependentOn("Publish-MyGet");
+  .IsDependentOn("Publish-MyGet")
+  .IsDependentOn("Upload-AppVeyor-NuGet");
 
 Task("Travis")
   .IsDependentOn("Run-Unit-Tests");
