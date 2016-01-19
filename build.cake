@@ -341,14 +341,11 @@ Task("Create-Release-Notes")
 Task("Upload-AppVeyor-NuGet")
     .WithCriteria(() => isRunningOnAppVeyor)
     .Does(() => {
-    
-        var apiKey = EnvironmentVariable("APPVEYOR_NUGET_APIKEY");
-    
         foreach(var package in new[] { "Cake", "Cake.Core", "Cake.Common", "Cake.Testing" })
         {
             // Get the path to the package.
             var packagePath = nugetRoot + File(string.Concat(package, ".", semVersion, ".nupkg"));
-
+            Information("Uploading AppVeyor artifact:" + packagePath);
             // Upload the package.
             AppVeyor.UploadArtifact(packagePath);
         } 
